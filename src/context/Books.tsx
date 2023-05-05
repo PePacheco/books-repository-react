@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import { Book } from "../App";
 
 type BooksContextType = {
@@ -16,9 +16,9 @@ type BooksProviderProps = {
 const initialState: BooksContextType = {
     books: [],
     onFetchBooks: () => {},
-    onCreateBook: (book: Book) => {},
-    onDeleteBook: (id: string) => {},
-    onEditBook: (id: string, title: string) => {},
+    onCreateBook: () => {},
+    onDeleteBook: () => {},
+    onEditBook: () => {},
 }
 
 export const BooksContext = createContext<BooksContextType>(initialState);
@@ -26,11 +26,11 @@ export const BooksContext = createContext<BooksContextType>(initialState);
 export const BooksProvider = ({children}: BooksProviderProps) => {
     const [books, setBooks] = useState<Book[]>([]);
 
-    const fetchBooks = async () => {
+    const fetchBooks = useCallback(async () => {
         const response = await fetch('http://localhost:3001/books')
         const books = await response.json()
         setBooks(books)
-    }
+    }, [])
 
     const handleCreateBook = async (book: Book) => {
         const response = await fetch('http://localhost:3001/books', {
