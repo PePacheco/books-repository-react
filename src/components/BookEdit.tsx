@@ -1,6 +1,6 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { Book } from "../App"
-import { BooksContext } from "../context/Books"
+import { useBooksContext } from "../hooks/useBooksContext"
 
 type BookEditProps = {
     book: Book
@@ -9,7 +9,7 @@ type BookEditProps = {
 
 export const BookEdit = ({ book, onSubmit }: BookEditProps) => {
     const [title, setTitle] = useState<string>(book.title)
-    const { onEditBook } = useContext(BooksContext)
+    const { onEditBook } = useBooksContext()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

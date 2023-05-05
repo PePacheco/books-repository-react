@@ -1,7 +1,7 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { BookEdit } from "./BookEdit"
-import { BooksContext } from "../context/Books"
 import { Book } from "../App"
+import { useBooksContext } from "../hooks/useBooksContext"
 
 type BookShowProps = {
     book: Book
@@ -9,7 +9,7 @@ type BookShowProps = {
 
 export const BookShow = ({ book }: BookShowProps) => {
     const [showEdit, setShowEdit] = useState<boolean>(false)
-    const { onDeleteBook } = useContext(BooksContext)
+    const { onDeleteBook } = useBooksContext()
 
     const handleSubmit = () => {
         setShowEdit(!showEdit)
